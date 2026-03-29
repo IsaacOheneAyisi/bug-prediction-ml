@@ -14,3 +14,23 @@ This project is part of my preparation for PhD research in Machine Learning for 
 - Python
 - scikit-learn
 - Hugging Face Transformers
+
+## Research Questions
+- Can machine learning predict bug-prone commits?
+- Do LLM embeddings improve performance?
+
+## Methodology
+- GitHub data collection
+- Text preprocessing
+- ML and LLM-based models
+
+## Results
+(see results/metrics.txt)
+
+## Future Work
+- Use larger datasets
+- Incorporate code changes
+- Study developer behavior
+
+## Author
+Isaac Ohene Ayisi

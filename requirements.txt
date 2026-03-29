@@ -3,3 +3,5 @@ scikit-learn
 matplotlib
 transformers
 torch
+sentence-transformers
+requests

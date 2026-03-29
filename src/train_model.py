@@ -1,27 +1,24 @@
 import pandas as pd
+from sentence_transformers import SentenceTransformer
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
 
-# Load data
-data = pd.read_csv("data/commits.csv")
+df = pd.read_csv("data/commits_labeled.csv")
 
-X = data["message"]
-y = data["label"]
+texts = df["message"].tolist()
+labels = df["label"].tolist()
 
-# Convert text to numbers
-vectorizer = CountVectorizer()
-X_vec = vectorizer.fit_transform(X)
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Train/test split
-X_train, X_test, y_train, y_test = train_test_split(X_vec, y, test_size=0.3)
+embeddings = model.encode(texts)
 
-# Train model
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
+X_train, X_test, y_train, y_test = train_test_split(
+    embeddings, labels, test_size=0.3
+)
 
-# Predict
-y_pred = model.predict(X_test)
+clf = LogisticRegression()
+clf.fit(X_train, y_train)
 
-print(classification_report(y_test, y_pred))
+accuracy = clf.score(X_test, y_test)
+
+print("LLM Model Accuracy:", accuracy)
